@@ -10,6 +10,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './rootReducer';
 
 import Nav from './navbar/nav';
+import Checkout from './checkout/Checkout';
 import AuthForm from './login/AuthForm';
 import MoviesList from './movies/MoviesList';
 import MovieDetail from './movies/MovieDetail';
@@ -25,8 +26,9 @@ const App = () => (
         <Nav />
         <Switch>
           <Route exact path="/" component={MoviesList} />
-          <Route path="/:id" component={MovieDetail} />
+          <Route exact path="/movies/:id" component={MovieDetail} />
           <Route exact path="/signin" component={AuthForm} />
+          <Route exact path="/checkout" component={Checkout} />
         </Switch>
       </div>
     </Router>

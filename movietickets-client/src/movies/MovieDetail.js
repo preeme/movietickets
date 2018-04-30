@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import Overdrive from 'react-overdrive';
-import { getMovie, resetMovie } from './actions';
+import { getMovie, resetMovie, updateCart } from './actions';
 import { Poster } from './Movie';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
 
 class MovieDetail extends Component {
+  state = {
+    qty: 0,
+  };
+
   componentDidMount() {
     const { getMovie, match } = this.props;
     getMovie(match.params.id);
@@ -19,6 +23,18 @@ class MovieDetail extends Component {
   componentWillUnmount() {
     this.props.resetMovie();
   }
+
+  handleChange = e => {
+    const value = e.target.value;
+
+    this.setState(() => ({ qty: value }));
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.updateCart(this.state.qty);
+  };
 
   render() {
     const { movie } = this.props;
@@ -35,7 +51,8 @@ class MovieDetail extends Component {
             <p>{movie.overview}</p>
             <form onSubmit={this.handleSubmit}>
               <label>
-                Buy Tickets: <input type="text" value={1} onChange={this.handleChange} />
+                Buy Tickets:{' '}
+                <input type="text" id="tickets" defaultValue={0} onChange={this.handleChange} />
               </label>
               <input type="submit" value="submit" />
             </form>
@@ -51,7 +68,8 @@ const mapStateToProps = state => ({
   isLoaded: state.movies.movieLoaded,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getMovie, resetMovie }, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getMovie, resetMovie, updateCart }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetail);
 

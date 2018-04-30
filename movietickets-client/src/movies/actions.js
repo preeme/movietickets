@@ -32,11 +32,12 @@ export function resetMovie() {
 }
 
 export function updateCart(qty) {
-  return async function (dispatch) {
-    const cartTotal = qty * 8.99;
+  return async function (dispatch, getState) {
+    const { cartTotal } = getState().movies;
+    const newCartTotal = qty * 8.99 + cartTotal;
     return dispatch({
       type: UPDATE_CART,
-      data: cartTotal,
+      data: newCartTotal,
     });
   };
 }

@@ -1,22 +1,39 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './nav.css';
 
-const Nav = () => (
-  <div>
-    <nav className="flex-nav">
-      <ul>
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li className="right">
-          <a href="/">Cart</a>
-        </li>
-        <li className="right">
-          <a href="/signin">Log In/Sign Up</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-);
+class Nav extends PureComponent {
+  render() {
+    const { cartTotal } = this.props;
+    return (
+      <div>
+        <nav className="flex-nav">
+          <ul>
+            <li>
+              <NavLink exact to="/">
+                Home
+              </NavLink>
+            </li>
+            <li className="right">
+              <NavLink exact to="/checkout">
+                Cart: {cartTotal}
+              </NavLink>
+            </li>
+            <li className="right">
+              <NavLink exact to="/signin">
+                Log In/Sign Up
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
+}
 
-export default Nav;
+const mapStateToProps = state => ({
+  cartTotal: state.movies.cartTotal,
+});
+
+export default connect(mapStateToProps)(Nav);
