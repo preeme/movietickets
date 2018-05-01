@@ -5,7 +5,7 @@ import './nav.css';
 
 class Nav extends PureComponent {
   render() {
-    const { cartTotal } = this.props;
+    const { cartTotal, quantity } = this.props;
     return (
       <div>
         <nav className="flex-nav">
@@ -17,7 +17,7 @@ class Nav extends PureComponent {
             </li>
             <li className="right">
               <NavLink exact to="/checkout">
-                Cart: {cartTotal}
+                Cart ({quantity}): {cartTotal}
               </NavLink>
             </li>
             <li className="right">
@@ -34,6 +34,7 @@ class Nav extends PureComponent {
 
 const mapStateToProps = state => ({
   cartTotal: state.movies.cartTotal,
+  quantity: state.movies.quantity,
 });
 
 export default connect(mapStateToProps)(Nav);

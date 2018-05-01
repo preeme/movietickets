@@ -6,6 +6,8 @@ const initialState = {
   movie: [],
   movieLoaded: false,
   cartTotal: 0,
+  quantity: 0,
+  movieTitle: '',
 };
 
 export default function (state = initialState, action) {
@@ -32,7 +34,9 @@ export default function (state = initialState, action) {
     case UPDATE_CART:
       return {
         ...state,
-        cartTotal: data,
+        cartTotal: data[0],
+        movieTitle: data[1],
+        quantity: data[2],
       };
     default:
       return state;
