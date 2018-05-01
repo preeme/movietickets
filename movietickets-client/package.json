@@ -10,6 +10,7 @@
     "react-overdrive": "0.0.9",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
+    "react-script-loader": "0.0.1",
     "react-scripts": "1.1.4",
     "react-stripe-elements": "^1.6.0",
     "redux": "^4.0.0",
